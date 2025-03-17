@@ -1,0 +1,866 @@
+﻿/* ============================ */
+/* Grundinställningar */
+/* ============================ */
+:root {
+    --primary-color: #CABA9C; /* Varm Beige */
+    --secondary-color: #D9D6CE; /* Beige Grå */
+    --background-color: #F1EEEE; /* Mjuk Vit */
+    --card-background: #D9D9D9; /* Ljus Grå */
+    --text-color: #333;
+    --font-primary: 'Playfair Display', serif;
+}
+
+/* Body och HTML */
+html, body {
+    height: 100%; /* Sidan fyller hela höjden */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-image: url('../images/lobby.png'); /* Justera sökvägen */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================ */
+/* Navigeringsmeny */
+/* ============================ */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 3px;
+    background-color: var(--secondary-color);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+    .logo img {
+        height: 50px;
+        width: auto;
+    }
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    margin: 0 auto;
+}
+
+    .nav-links li {
+        display: inline;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #000;
+        font-size: 25px;
+        font-weight: 600;
+        padding: 10px 10px;
+        transition: 0.3s;
+    }
+
+        .nav-links a:hover {
+            color: #b59a85;
+        }
+
+/* Inloggningssida */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background-color: var(--background-color);
+    padding: 10px;
+}
+
+    .login-container h2 {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+    .login-box input {
+        width: 90%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid var(--secondary-color);
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+.login-button {
+    background-color: var(--primary-color);
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+}
+
+    .login-button:hover {
+        background-color: #b59a85;
+    }
+
+.login-box p {
+    margin-top: 15px;
+}
+
+.login-box a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    .login-box a:hover {
+        text-decoration: underline;
+    }
+
+/* ============================ */
+/* LOGIN-knapp */
+/* ============================ */
+.login-btn {
+    background-color: var(--primary-color);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    transition: 0.3s;
+    margin-right: 20px;
+}
+
+    .login-btn img {
+        width: 30px;
+        height: auto;
+        border-radius: 50%;
+    }
+
+    .login-btn:hover {
+        background-color: #b59a85;
+    }
+
+/* ============================ */
+/* Main-sektion */
+/* ============================ */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    flex: 1; /* Tar upp all plats mellan header och footer */
+}
+
+/* ============================ */
+/* Hero-sektion */
+/* ============================ */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 90vh;
+    background-image: url('/images/lobby.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
+}
+
+.hero-content {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+/* ============================ */
+/* Knappar */
+/* ============================ */
+.button {
+    background-color: var(--secondary-color);
+    color: black;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: var(--font-primary); /* Använd Playfair Display */
+    transition: 0.3s;
+    /* Skugga med djup */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    
+}
+
+
+    .button:hover {
+        background-color: #b59a85;
+        /* Starkare skugga vid hover för en tryckeffekt */
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+/* ============================ */
+/* Footer */
+/* ============================ */
+footer {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto; /* Skjuter ner footern till botten */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-info,
+.footer-contact,
+.footer-newsletter {
+    flex: 1;
+    text-align: center;
+}
+
+    .footer-newsletter form {
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer-newsletter input {
+        padding: 10px;
+        width: 70%;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .footer-newsletter button {
+        padding: 10px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .footer-newsletter button:hover {
+            background-color: #b59a85;
+        }
+
+/* ============================ */
+/* Responsiv Design */
+/* ============================ */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 0;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+        .nav-links a {
+            font-size: 20px;
+            display: block;
+            padding: 5px;
+        }
+
+    .login-btn {
+        margin: 10px auto;
+    }
+
+    .hero {
+        height: 70vh;
+        background-attachment: scroll;
+    }
+
+        .hero h1 {
+            font-size: 32px;
+        }
+
+    .hero-content {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    /* Footer */
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .footer-info,
+    .footer-contact,
+    .footer-newsletter {
+        text-align: center;
+    }
+
+        .footer-newsletter form {
+            justify-content: center;
+        }
+}
+
+/* ============================ */
+/* Övriga komponenter */
+/* ============================ */
+
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        max-width: 100%;
+        border-radius: 15px;
+        margin-bottom: 15px;
+    }
+
+/* ============================ */
+/* Småbilder */
+/* ============================ */
+.small-images img:hover {
+    transform: scale(1.05);
+}
+/* Container för knappar */
+.container {
+    display: flex;
+    gap: 20px; /* Mellanrum mellan korten */
+    justify-content: center; /* Centrerar elementen horisontellt */
+    flex-wrap: wrap; /* Tillåter radbrytning om utrymmet tar slut */
+    margin-top: 20px;
+}
+/* Box runt rubriken */
+.headlinebox {
+    background-color: var(--secondary-color); /* Bakgrundsfärg */
+    padding: 20px; /* Utrymme runt texten */
+    border-radius: 10px; /* Rundade hörn */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px; /* Skapar mer avstånd från headern */
+    margin-bottom: 30px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1); /* Lätt skugga för djup */
+    font-family: var(--font-primary);
+}
+
+/* Rubrikstil */
+.headline {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin: 0;
+    font-family: var(--font-primary); /* Använd Playfair Display */
+}
+
+.content-wrapper {
+    margin-top: 80px; /* Anpassa beroende på höjden på navbaren */
+}
+
+/* ========================= */
+/* Anpassad stil för tabell */
+/* ========================= */
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.table {
+    margin-top: 30px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: center;
+        font-size: 16px;
+        font-family: var(--font-primary);
+    }
+
+    .table th {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: bold;
+    }
+
+    .table td {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+    }
+
+    .table tr:nth-child(even) td {
+        background-color: #e0ddd4;
+    }
+
+    .table tr:hover td {
+        background-color: #d6cfc3;
+        transition: background-color 0.3s ease;
+    }
+
+/* Statusfärger */
+.text-success {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-weight: bold;
+}
+.HeadlineAPI {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center; /* Centrera texten horisontellt */
+    margin-top: 40px; /* Extra mellanrum ovanför rubriken */
+    margin-bottom: 20px; /* Extra mellanrum mellan rubriken och tabellen */
+    color: var(--text-color);
+}
+
+.knapsson {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+    .knapsson:hover {
+        background-color: #b59a85;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    }
+.form-wrapper {
+    display: flex;
+    justify-content: center; /* Centrera horisontellt */
+    margin-top: 30px; /* Extra mellanrum mellan tabellen och knappen */
+}
+/* ========================= */
+/* Titel för formulär */
+/* ========================= */
+.form-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+/* ========================= */
+/* Anpassat formulär */
+/* ========================= */
+.custom-form {
+    background-color: var(--background-color);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto; /* Centrera horisontellt */
+}
+.custom-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+/* ========================= */
+/* Formulärgrupp */
+/* ========================= */
+.custom-form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrera innehållet horisontellt */
+}
+
+    .custom-form-group label {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--text-color);
+        margin-bottom: 8px;
+    }
+
+/* ========================= */
+/* Inputfält */
+/* ========================= */
+.custom-form-control {
+    width: 100%; /* Tar upp full bredd inom formuläret */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: var(--font-primary);
+    box-sizing: border-box; /* Säkerställer att padding och border inte lägger till bredd */
+}
+
+    .custom-form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0px 0px 8px rgba(202, 186, 156, 0.6);
+        outline: none;
+    }
+
+/* ========================= */
+/* Knappar */
+/* ========================= */
+.form-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.custom-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+    .custom-btn:hover {
+        background-color: #b59a85;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+/* ========================= */
+/* Wrapper för dashboard */
+/* ========================= */
+.dash-wrapper {
+    margin-top: 80px;
+    padding: 0 5%; /* Utnyttja mer av sidans bredd */
+}
+
+/* ========================= */
+/* Knappar högst upp */
+/* ========================= */
+.dash-top-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.dash-button-card {
+    flex: 0 1 auto;
+}
+
+.dash-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+    .dash-button:hover {
+        background-color: #b59a85;
+    }
+
+/* ========================= */
+/* Flex-container för tabell och formulär */
+/* ========================= */
+.dash-flex-container {
+    display: flex;
+    gap: 30px; /* Minskad gap för en mer balanserad känsla */
+    justify-content: center; /* Centrera horisontellt */
+    align-items: flex-start; /* Håll dem i linje upptill */
+    margin-top: 20px;
+}
+
+/* ========================= */
+/* Tabell (Vänsterkolumn) */
+/* ========================= */
+.dash-data-list {
+    flex: 0 0 105%; /* Öka till 55% så att tabellen får mer plats */
+    max-width: 100%; /* Håll bredden konstant */
+}
+
+.dash-table {
+    width: 100%; /* Fyll ut hela tillgängliga bredden */
+    border-collapse: collapse;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+    .dash-table th,
+    .dash-table td {
+        padding: 14px; /* Lite mer padding för bättre läsbarhet */
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    .dash-table th {
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: bold;
+    }
+
+    .dash-table td {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+    }
+
+    .dash-table tr:nth-child(even) td {
+        background-color: #e7e4dc; /* Alternativ radfärg */
+    }
+
+    .dash-table tr:hover {
+        background-color: #d6cfc3;
+        transition: background-color 0.3s ease;
+    }
+
+/* ========================= */
+/* Knappar i tabell */
+/* ========================= */
+.dash-btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+    .dash-btn-danger:hover {
+        background-color: #c82333;
+    }
+
+/* ========================= */
+/* Formulär (Högerkolumn) */
+/* ========================= */
+.dash-input-form {
+    flex: 0 0 40%; /* Fixad bredd för formuläret */
+    max-width: 40%;
+    background-color: var(--background-color);
+    padding: 16px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    margin-top: 20px; /* Justera värdet för att skjuta ner rutan */
+}
+
+.dash-form-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px; /* Minska mellanrubrik och input */
+    text-align: center;
+}
+
+/* ========================= */
+/* Formulärfält */
+/* ========================= */
+.dash-form-group {
+    margin-bottom: 10px; /* Lite tajtare */
+
+}
+
+.dash-label {
+    font-size: 14px;
+    color: var(--text-color);
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.dash-input {
+    width: 100%;
+    padding: 10px 12px; /* Jämn padding till vänster och höger */
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fafafa;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box; /* Säkerställ att padding inte påverkar bredden */
+}
+
+    .dash-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0px 0px 6px rgba(202, 186, 156, 0.5);
+    }
+
+/* ========================= */
+/* Knappar i formulär */
+/* ========================= */
+.dash-btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%; /* Fyll ut hela bredden */
+}
+
+    .dash-btn-primary:hover {
+        background-color: #b59a85;
+    }
+
+/* ========================= */
+/* Hover-effekt på hela formulärrutan */
+/* ========================= */
+.dash-input-form:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.15);
+}
+/* ========================= */
+/* Responsivitet */
+/* ========================= */
+@media (max-width: 1024px) {
+    .dash-flex-container {
+        flex-direction: column; /* Stapla tabell och formulär vertikalt */
+        gap: 20px;
+    }
+
+    .dash-data-list,
+    .dash-input-form {
+        flex: 0 0 100%; /* Ta upp hela bredden på mindre skärmar */
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .dash-table th,
+    .dash-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .dash-input {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .dash-btn-primary {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}
+.table-wrapper {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .table th,
+    .table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .table th {
+        background-color: #c0b28f;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .table td {
+        font-size: 16px;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table td[colspan="3"] {
+        text-align: center;
+        font-style: italic;
+        color: #666;
+    }
+
+/* Färger för status */
+.status-up {
+    background-color: #28a745;
+    color: white;
+}
+
+.status-issue {
+    background-color: #ffc107;
+    color: black;
+}
+
+.status-down {
+    background-color: #dc3545;
+    color: white;
+}

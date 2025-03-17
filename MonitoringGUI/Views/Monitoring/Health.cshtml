@@ -1,0 +1,53 @@
+﻿<div class="content-wrapper">
+    <div class="container">
+        <div class="card">
+            <a href="@Url.Action("Index", "Employee")" class="button">Anställda</a>
+        </div>
+        <div class="card">
+            <a href="@Url.Action("Health", "Monitoring")" class="button">Övervakning</a>
+        </div>
+        <div class="card">
+            <a href="@Url.Action("Stats", "Monitoring")" class="button">Antal anrop</a>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>API-namn</th>
+                    <th>Meddelande</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.ApiStatuses != null)
+                {
+                    foreach (var api in ViewBag.ApiStatuses)
+                    {
+                        <tr>
+                            <td>@api.Key</td>
+                            <td>@api.Value</td>
+                            <td style="text-align: center; font-weight: bold; color: white; background-color:
+                                @(api.Value == "Running" ? "#28a745" : api.Value == "Issue Detected" ? "#ffc107" : "#dc3545")">
+                                @(api.Value == "Running" ? "Up" : api.Value == "Issue Detected" ? "Issue" : "Down")
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3">Ingen status tillgänglig.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="form-wrapper">
+        <form method="get" action="/Monitoring/Health">
+            <button type="submit" class="knapsson">Skicka ny förfrågan</button>
+        </form>
+    </div>
+</div>

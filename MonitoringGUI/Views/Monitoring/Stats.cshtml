@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "API Anropsstatistik";
+Layout = "_Layout";
+
+}
+
+<div class="content-wrapper">
+    <div class="container">
+        <div class="card">
+            <a href="@Url.Action("Index", "Employee")" class="button">Anställda</a>
+        </div>
+        <div class="card">
+            <a href="@Url.Action("Health", "Monitoring")" class="button">Övervakning</a>
+        </div>
+        <div class="card">
+            <a href="@Url.Action("Stats", "Monitoring")" class="button">Antal anrop</a>
+        </div>
+    </div>
+
+
+@if (ViewBag.ApiStats == null)
+{
+    <p class="text-danger">Ingen statistik tillgänglig.</p>
+}
+else
+{
+    var apiStats = ViewBag.ApiStats as Dictionary<string, List<dynamic>>;
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>API</th>
+                <th>Endpoint</th>
+                <th>Antal Anrop</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var api in apiStats)
+            {
+                var apiName = api.Key;
+                var stats = api.Value;
+
+                if (stats != null && stats.Any())
+                {
+                    foreach (var stat in stats)
+                    {
+                        <tr>
+                            <td>@apiName</td>
+                            <td>@stat.endpoint</td>
+                            <td>@stat.requestCount</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}

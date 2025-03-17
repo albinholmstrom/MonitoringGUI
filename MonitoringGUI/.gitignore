@@ -1,0 +1,23 @@
+# Ignorera Visual Studio-mappen
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignorera build-filer
+bin/
+obj/
+
+# Ignorera loggfiler
+*.log
+
+# Ignorera paket och beroenden
+node_modules/
+packages/
+
+# Ignorera temporära filer
+*.tmp
+*.bak
+*.swp

@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_Layout";
+}
+
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var roleID = HttpContextAccessor.HttpContext.Session.GetInt32("UserRole");
+
+    // Om användaren inte är inloggad eller inte är admin, skicka dem till inloggningssidan
+    if (roleID != 1)
+    {
+        Context.Response.Redirect("/Account/Login");
+        return;
+    }
+}
+
+<h2>Admin Dashboard</h2>
+<div class="headlinebox">
+<p class="headline">Välj en funktion:</p>
+</div>
+
+<div class="container">
+    <div class="card">
+        <a href="@Url.Action("Index", "Employee")" class="button">Anställda</a>
+    </div>
+    <div class="card">
+        <a href="@Url.Action("Health", "Monitoring")" class="button">Övervakning</a>
+    </div>
+    <div class="card">
+        <a href="@Url.Action("Stats", "Monitoring")" class="button">Antal anrop</a>
+    </div>
+
+</div>

@@ -1,0 +1,81 @@
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var roleID = HttpContextAccessor.HttpContext.Session.GetInt32("UserRole");
+    var username = HttpContextAccessor.HttpContext.Session.GetString("Username");
+}
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Hotell Lyx</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigeringsmeny Gäst-->
+    <nav>
+        <div class="logo">
+            <img src="~/images/logo.png" alt="Hotell Logo">
+            <h1>HOTELL LYX</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a asp-controller="Rooms" asp-action="Index">Rum</a></li>
+            <li><a asp-controller="Home" asp-action="Food">Mat & Dryck</a></li>
+            <li><a asp-controller="Home" asp-action="Event">Event</a></li>
+            <li><a asp-controller="Home" asp-action="Offers">Erbjudanden</a></li>
+            @if (roleID == 1) // Visa endast för admin
+            {
+                <li><a asp-controller="Dashboard" asp-action="Index">Admin</a></li>
+            }
+        </ul>
+        @if (!string.IsNullOrEmpty(username))
+        {
+            <!-- Om användaren är inloggad, visa Logga ut-knappen -->
+            <form asp-controller="Account" asp-action="Logout" method="post" class="logout-form">
+                <button type="submit" class="button logout-btn">
+                     Logga ut
+                </button>
+            </form>
+        }
+        else
+        {
+            <!-- Om användaren inte är inloggad, visa Logga in-knappen -->
+            <a asp-controller="Account" asp-action="Login" class="button login-btn">
+                <img src="~/images/login.png" alt="Logga in" class="login-icon"> Logga in
+            </a>
+        }
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3>Hotell Lyx</h3>
+                <p>Strandvägen 12<br>12345 Västervik</p>
+                <strong>Hitta hit</strong>
+            </div>
+
+            <div class="footer-contact">
+                <p><strong>Telefon:</strong> 0490-12345</p>
+                <p><strong>Epost:</strong> vastervik@hotmail.se</p>
+            </div>
+
+            <!--  Nyhetsbrev -->
+            <div class="footer-newsletter">
+                <h3>Anmäl dig till vårt nyhetsbrev</h3>
+                <form action="#" method="post">
+                    <input type="email" placeholder="E-postadress" required>
+                    <button type="submit">Skicka</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
