@@ -62,26 +62,25 @@ public class AccountController : Controller
         return RedirectToAction("Index", "Home");
     }
 
-
-
-
-
     [HttpPost]
     public async Task<IActionResult> Logout()
     {
-        // Skickar utloggningsbegäran till API:et
-        var response = await _httpClient.PostAsync("https://informatik2.ei.hv.se/api/auth/logout", null);
-
-        if (response.IsSuccessStatusCode)
+        try
         {
-            //  Rensar sessionen i GUI-projektet
-            HttpContext.Session.Clear();
-            Response.Cookies.Delete("SessionID");
-            return RedirectToAction("Login");
+            // Skickar utloggningsbegäran till API:et
+            var response = await _httpClient.PostAsync("https://informatik2.ei.hv.se/api/auth/logout", null);
+        }
+        catch
+        {
+            // Om API-anropet misslyckas, fortsätt ändå med att rensa sessionen
         }
 
-        // Om API-anropet misslyckas, visas ett felmeddelande
-        ViewBag.ErrorMessage = "Det gick inte att logga ut. Försök igen.";
-        return View("Index");
+        // Rensar sessionen och cookies oavsett om API-anropet lyckades eller inte
+        HttpContext.Session.Clear();
+        Response.Cookies.Delete("SessionID");
+
+        // Omdirigera alltid till startsidan
+        return RedirectToAction("Index", "Home");
     }
+
 }

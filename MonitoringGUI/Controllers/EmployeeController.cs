@@ -85,7 +85,6 @@ namespace MonitoringGUI.Controllers
 
 
 
-
         [HttpPost]
         public async Task<IActionResult> AddEmployee(User newEmployee)
         {
@@ -123,13 +122,6 @@ namespace MonitoringGUI.Controllers
 
             return RedirectToAction("Index");
         }
-
-
-
-
-
-
-
 
         [HttpPost]
         public async Task<IActionResult> DeleteEmployee(int userId)

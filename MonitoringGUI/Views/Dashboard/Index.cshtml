@@ -16,19 +16,21 @@
 }
 
 <h2>Admin Dashboard</h2>
-<div class="headlinebox">
-<p class="headline">Välj en funktion:</p>
+
+<div class="headline-wrapper">
+    <div class="headlinebox">
+        <p class="headline">Välj en funktion:</p>
+    </div>
 </div>
 
 <div class="container">
-    <div class="card">
+    <div>
         <a href="@Url.Action("Index", "Employee")" class="button">Anställda</a>
     </div>
-    <div class="card">
+    <div>
         <a href="@Url.Action("Health", "Monitoring")" class="button">Övervakning</a>
     </div>
-    <div class="card">
+    <div>
         <a href="@Url.Action("Stats", "Monitoring")" class="button">Antal anrop</a>
     </div>
-
 </div>

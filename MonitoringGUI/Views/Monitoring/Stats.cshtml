@@ -1,57 +1,72 @@
 ﻿@{
     ViewData["Title"] = "API Anropsstatistik";
-Layout = "_Layout";
-
+    Layout = "_Layout";
 }
 
-<div class="content-wrapper">
-    <div class="container">
-        <div class="card">
-            <a href="@Url.Action("Index", "Employee")" class="button">Anställda</a>
-        </div>
-        <div class="card">
-            <a href="@Url.Action("Health", "Monitoring")" class="button">Övervakning</a>
-        </div>
-        <div class="card">
-            <a href="@Url.Action("Stats", "Monitoring")" class="button">Antal anrop</a>
-        </div>
+<h2>A</h2>
+
+<div class="headline-wrapper">
+    <div class="headlinebox">
+        <p class="headline">Välj en funktion:</p>
     </div>
+</div>
 
+<div class="container">
+    <div>
+        <a href="@Url.Action("Index", "Employee")" class="button">Anställda</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Health", "Monitoring")" class="button">Övervakning</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Stats", "Monitoring")" class="button">Antal anrop</a>
+    </div>
+</div>
 
-@if (ViewBag.ApiStats == null)
-{
-    <p class="text-danger">Ingen statistik tillgänglig.</p>
-}
-else
-{
-    var apiStats = ViewBag.ApiStats as Dictionary<string, List<dynamic>>;
+<div class="headline-wrapper"">
+    <div class="headlinebox">
+        <h9 class="table-title">API Anropsstatistik</h9>
+    </div>
+</div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>API</th>
-                <th>Endpoint</th>
-                <th>Antal Anrop</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var api in apiStats)
-            {
-                var apiName = api.Key;
-                var stats = api.Value;
+<div class="table-wrapper">
+    <div class="table-container">
+        @if (ViewBag.ApiStats == null)
+        {
+            <p class="text-danger text-center">Ingen statistik tillgänglig.</p>
+        }
+        else
+        {
+            var apiStats = ViewBag.ApiStats as Dictionary<string, List<dynamic>>;
 
-                if (stats != null && stats.Any())
-                {
-                    foreach (var stat in stats)
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>API</th>
+                        <th>Endpoint</th>
+                        <th>Antal Anrop</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var api in apiStats)
                     {
-                        <tr>
-                            <td>@apiName</td>
-                            <td>@stat.endpoint</td>
-                            <td>@stat.requestCount</td>
-                        </tr>
+                        var apiName = api.Key;
+                        var stats = api.Value;
+
+                        if (stats != null && stats.Any())
+                        {
+                            foreach (var stat in stats)
+                            {
+                                <tr>
+                                    <td>@apiName</td>
+                                    <td>@stat.endpoint</td>
+                                    <td>@stat.requestCount</td>
+                                </tr>
+                            }
+                        }
                     }
-                }
-            }
-        </tbody>
-    </table>
-}
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
