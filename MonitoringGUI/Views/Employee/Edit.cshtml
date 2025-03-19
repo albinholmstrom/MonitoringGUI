@@ -1,0 +1,63 @@
+﻿@model MonitoringGUI.Models.User
+@{
+    Layout = "_Layout";
+}
+
+<h2>A</h2>
+
+<div class="headline-wrapper">
+    <div class="headlinebox">
+        <p class="headline">Välj en funktion:</p>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        <a href="@Url.Action("Index", "Employee")" class="button">Anställda</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Health", "Monitoring")" class="button">Övervakning</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Stats", "Monitoring")" class="button">Antal anrop</a>
+    </div>
+</div>
+
+<div class="headline-wrapper">
+    <div class="headlinebox">
+        <h9 class="table-title">Redigera anställd</h9>
+    </div>
+</div>
+
+<div class="dash-flex-container">
+    <div class="dash-input-form">
+        <h3 class="dash-form-title">Redigera Anställd</h3>
+
+        <form method="post" action="@Url.Action("UpdateEmployee", "Employee", new { userId = Model.UserID })" enctype="application/x-www-form-urlencoded">
+            <!-- Simulera PUT-metod -->
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="UserID" value="@Model.UserID">
+
+            <div class="dash-form-group">
+                <label for="username" class="dash-label">Användarnamn</label>
+                <input type="text" id="username" name="Username" value="@Model.Username" class="dash-input" required>
+            </div>
+
+            <div class="dash-form-group">
+                <label for="email" class="dash-label">E-post</label>
+                <input type="email" id="email" name="EmailAddress" value="@Model.EmailAddress" class="dash-input" required>
+            </div>
+
+            <div class="dash-form-group">
+                <label for="password" class="dash-label">Lösenord (lämna tomt om det ej ska ändras)</label>
+                <input type="password" id="password" name="PasswordHash" class="dash-input">
+            </div>
+
+            <div class="form-btn-wrapper">
+                <button type="submit" class="dash-btn-primary">Spara ändringar</button>
+                <a href="@Url.Action("Index", "Employee")" class="dash-btn-primary">Tillbaka</a>
+            </div>
+        </form>
+    </div>
+</div>
+

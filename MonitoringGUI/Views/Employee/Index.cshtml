@@ -52,7 +52,7 @@
                                 <td>@employee.EmailAddress</td>
                             <td style="display: flex; gap: 10px;">
                                 <!-- Redigera-knapp -->
-                                <a href="@Url.Action("Edit", "Employee", new { id = employee.UserID })" class="dash-btn-edit">✏️ Redigera</a>
+                                <a href="@Url.Action("Edit", "Employee", new { userId = employee.UserID })" class="dash-btn-edit">✏️ Redigera</a>
                                     <form asp-action="DeleteEmployee" asp-controller="Employee" method="post" class="delete-form">
                                         <input type="hidden" name="userId" value="@employee.UserID" />
                                         <button type="submit" class="dash-btn-danger">❌ Ta bort</button>

@@ -136,5 +136,91 @@ namespace MonitoringGUI.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+
+
+
+        [HttpPut("updateEmployee/{userId}")]
+        public async Task<IActionResult> UpdateEmployee(int userId, [FromForm] User updatedEmployee, [FromForm] string _method)
+        {
+            System.Diagnostics.Debug.WriteLine($"🚀 GUI: UpdateEmployee-metoden anropad för UserID: {userId}");
+
+            // Kontrollera om metoden är PUT (för att säkerställa att den simulerar PUT korrekt).
+            if (_method != "PUT")
+            {
+                System.Diagnostics.Debug.WriteLine("❌ Felaktig HTTP-metod mottagen!");
+                return BadRequest("Fel metod!");
+            }
+
+            var adminRole = HttpContext.Session.GetInt32("UserRole");
+            if (adminRole != 1)
+            {
+                TempData["ErrorMessage"] = "Du måste vara inloggad som administratör.";
+                return RedirectToAction("Index");
+            }
+
+            var json = JsonSerializer.Serialize(new
+            {
+                Username = updatedEmployee.Username,
+                EmailAddress = updatedEmployee.EmailAddress,
+                PasswordHash = string.IsNullOrEmpty(updatedEmployee.PasswordHash) ? null : updatedEmployee.PasswordHash,
+                RoleID = updatedEmployee.RoleID
+            });
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Skickar PUT-anrop till API:et
+            var response = await _httpClient.PutAsync($"updateEmployee/{userId}", content);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                TempData["ErrorMessage"] = $"Fel vid uppdatering av anställd: {response.StatusCode} - {responseBody}";
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+        [HttpGet("Edit/{userId}")]
+        public async Task<IActionResult> Edit(int userId)
+        {
+            var sessionId = HttpContext.Session.GetString("SessionID");
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var response = await _httpClient.GetAsync($"employees");
+            if (!response.IsSuccessStatusCode)
+            {
+                TempData["ErrorMessage"] = "Kunde inte hämta anställda.";
+                return RedirectToAction("Index");
+            }
+
+            var employeesJson = await response.Content.ReadAsStringAsync();
+            var employees = JsonSerializer.Deserialize<List<User>>(employeesJson, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            var employee = employees.FirstOrDefault(e => e.UserID == userId);
+            if (employee == null)
+            {
+                TempData["ErrorMessage"] = "Anställd hittades inte.";
+                return RedirectToAction("Index");
+            }
+
+            return View(employee);
+        }
+
+
+
     }
 }
