@@ -841,18 +841,20 @@ footer {
 /* ========================= */
 .dash-flex-container {
     display: flex;
-    gap: 30px; /* Minskad gap för en mer balanserad känsla */
-    justify-content: center; /* Centrera horisontellt */
-    align-items: flex-start; /* Håll dem i linje upptill */
-    margin-top: 20px;
+    gap: 30px; /* Skapa utrymme mellan tabellen och formuläret */
+    justify-content: center; /* Centrera innehållet horisontellt */
+    align-items: flex-start; /* Håll dem uppradade upptill */
+    margin-top: 40px; /* Skapa mer luft ovanför */
+    margin-bottom: 40px;
 }
 
 /* ========================= */
 /* Tabell (Vänsterkolumn) */
 /* ========================= */
 .dash-data-list {
-    flex: 0 0 105%; /* Öka till 55% så att tabellen får mer plats */
-    max-width: 100%; /* Håll bredden konstant */
+    flex: 0 0 55%; /* Ger tabellen 55% av tillgängligt utrymme */
+    max-width: 600px; /* Säkerställer att den inte blir för bred */
+    margin-top: -20px;
 }
 
 .dash-table {
@@ -909,18 +911,35 @@ footer {
         background-color: #c82333;
     }
 
+/* Redigera-knapp */
+.dash-btn-edit {
+    background-color: #ffc107; /* Gul färg */
+    color: black;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .dash-btn-edit:hover {
+        background-color: #e0a800;
+    }
+
 /* ========================= */
 /* Formulär (Högerkolumn) */
 /* ========================= */
 .dash-input-form {
-    flex: 0 0 40%; /* Fixad bredd för formuläret */
-    max-width: 40%;
+    flex: 1; /* Gör att formuläret tar upp lika mycket plats */
+    max-width: 400px; /* Justera bredd vid behov */
     background-color: var(--background-color);
     padding: 16px 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
-    margin-top: 20px; /* Justera värdet för att skjuta ner rutan */
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start; /* Viktig: Justerar formulärets position så det matchar tabellen */
 }
 
 .dash-form-title {

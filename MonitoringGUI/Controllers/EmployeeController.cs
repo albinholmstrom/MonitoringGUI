@@ -16,7 +16,7 @@ namespace MonitoringGUI.Controllers
         public EmployeeController(HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("https://informatik2.ei.hv.se/api/auth/");
+            _httpClient.BaseAddress = new Uri("https://informatik2.ei.hv.se/LoginService/api/auth/");
             _httpContextAccessor = httpContextAccessor;
         }
 

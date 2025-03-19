@@ -1,25 +1,31 @@
 ﻿@model List<MonitoringGUI.Models.User>
     Layout = "_Layout";
 
-@{
-    Console.WriteLine("👀 Viewn laddas...");
-    Console.WriteLine($"Antal anställda i Model: {(Model != null ? Model.Count : 0)}");
-}
-<script>
-    console.log("👀 Viewn laddas...");
-</script>
-<div class="content-wrapper">
-    <div class="container">
-        <div class="card">
-            <a href="@Url.Action("Index", "Employee")" class="button">Anställda</a>
-        </div>
-        <div class="card">
-            <a href="@Url.Action("Health", "Monitoring")" class="button">Övervakning</a>
-        </div>
-        <div class="card">
-            <a href="@Url.Action("Stats", "Monitoring")" class="button">Antal anrop</a>
-        </div>
+<h2>A</h2>
+
+<div class="headline-wrapper">
+    <div class="headlinebox">
+        <p class="headline">Välj en funktion:</p>
     </div>
+</div>
+
+<div class="container">
+    <div>
+        <a href="@Url.Action("Index", "Employee")" class="button">Anställda</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Health", "Monitoring")" class="button">Övervakning</a>
+    </div>
+    <div>
+        <a href="@Url.Action("Stats", "Monitoring")" class="button">Antal anrop</a>
+    </div>
+</div>
+
+<div class="headline-wrapper">
+    <div class="headlinebox">
+        <h9 class="table-title">Hantera Anställda</h9>
+    </div>
+</div>
 
 
     <!-- Flex-container för tabell + formulär -->
@@ -44,7 +50,9 @@
                                 <td>@employee.UserID</td>
                                 <td>@employee.Username</td>
                                 <td>@employee.EmailAddress</td>
-                                <td>
+                            <td style="display: flex; gap: 10px;">
+                                <!-- Redigera-knapp -->
+                                <a href="@Url.Action("Edit", "Employee", new { id = employee.UserID })" class="dash-btn-edit">✏️ Redigera</a>
                                     <form asp-action="DeleteEmployee" asp-controller="Employee" method="post" class="delete-form">
                                         <input type="hidden" name="userId" value="@employee.UserID" />
                                         <button type="submit" class="dash-btn-danger">❌ Ta bort</button>
