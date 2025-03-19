@@ -22,39 +22,50 @@ namespace MonitoringGUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //hämtar sessionens ID och kontrollerar så att den är giltig
+            System.Diagnostics.Debug.WriteLine("🟢 Index-metoden startad.");
+
+            // Hämtar sessionens ID och kontrollerar att den är giltig
             var sessionId = HttpContext.Session.GetString("SessionID");
             if (string.IsNullOrEmpty(sessionId))
             {
+                System.Diagnostics.Debug.WriteLine("❌ Ingen aktiv session hittades.");
                 ViewBag.ErrorMessage = "Ingen aktiv session. Logga in igen.";
                 return RedirectToAction("Login", "Account");
             }
 
-            //lägger till sessionsID i http-headern
+            System.Diagnostics.Debug.WriteLine($"✅ SessionID hittades: {sessionId}");
+
+            // Lägg till sessionID i http-headern
             _httpClient.DefaultRequestHeaders.Add("Cookie", $"SessionID={sessionId}");
 
-            //anropar /protected för att verifiera sessionen
+            // Anropar /protected för att verifiera sessionen
             var response = await _httpClient.GetAsync("protected");
             if (!response.IsSuccessStatusCode)
             {
+                System.Diagnostics.Debug.WriteLine("❌ Sessionen är ogiltig eller har gått ut.");
                 ViewBag.ErrorMessage = "Sessionen är ogiltig eller har gått ut.";
                 return RedirectToAction("Login", "Account");
             }
 
-            //nedan läser av API-svaret och kontrollerar att userID och roleID finns med.
+            // Läser av API-svaret och kontrollerar att userID och roleID finns med
             var responseBody = await response.Content.ReadAsStringAsync();
+            System.Diagnostics.Debug.WriteLine($"🔎 API-svar för sessionen: {responseBody}");
+
             var sessionData = JsonDocument.Parse(responseBody).RootElement;
 
             if (!sessionData.TryGetProperty("userId", out JsonElement userIdElement) ||
                 !sessionData.TryGetProperty("roleId", out JsonElement roleIdElement))
             {
+                System.Diagnostics.Debug.WriteLine("❌ Fel vid hämtning av session - userId/roleId saknas.");
                 ViewBag.ErrorMessage = "Fel vid hämtning av session.";
                 return RedirectToAction("Login", "Account");
             }
 
-            //nedan uppdaterar sessionen om nödvändigt.
+            // Uppdaterar sessionen om nödvändigt
             int userId = userIdElement.GetInt32();
             int roleId = roleIdElement.GetInt32();
+
+            System.Diagnostics.Debug.WriteLine($"✅ Session uppdaterad → UserID: {userId}, RoleID: {roleId}");
 
             if (HttpContext.Session.GetInt32("UserID") != userId || HttpContext.Session.GetInt32("UserRole") != roleId)
             {
@@ -62,66 +73,107 @@ namespace MonitoringGUI.Controllers
                 HttpContext.Session.SetInt32("UserRole", roleId);
             }
 
-            //hämta lista över anställda
+            // Hämta lista över anställda
             var employeesResponse = await _httpClient.GetAsync("employees");
             if (!employeesResponse.IsSuccessStatusCode)
             {
+                System.Diagnostics.Debug.WriteLine("❌ Kunde inte hämta anställda från API.");
                 ViewBag.ErrorMessage = "Kunde inte hämta anställda.";
                 return View(new List<User>());
             }
 
-            //deserialiserar JSON-svaret till en lista av User-objekt.
             var employeesJson = await employeesResponse.Content.ReadAsStringAsync();
             var employees = JsonSerializer.Deserialize<List<User>>(employeesJson, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });
 
+            System.Diagnostics.Debug.WriteLine($"🔎 Antal användare hämtade från API: {employees.Count}");
+
+            // Logga varje användare för att se roller och data
+            foreach (var user in employees)
+            {
+                System.Diagnostics.Debug.WriteLine($"👤 User: {user.Username}, RoleID: {user.RoleID}");
+            }
+
             ViewBag.IsAdmin = roleId == 1; // Används i View för att visa/dölja admin-funktioner
 
-            //returnerar listan
+            System.Diagnostics.Debug.WriteLine("✅ Index-metoden slutförd – data skickad till vyn.");
+
             return View(employees);
         }
+
 
 
 
         [HttpPost]
         public async Task<IActionResult> AddEmployee(User newEmployee)
         {
-            System.Diagnostics.Debug.WriteLine("GUI: AddEmployee-metoden anropad.");
+            System.Diagnostics.Debug.WriteLine("🟢 AddEmployee-metoden anropad!");
 
-            newEmployee.RoleID = 2;//sätter RoleId till 2
-            newEmployee.UserID = 0; //nollställ UserID
+            System.Diagnostics.Debug.WriteLine($"➡️ Användarnamn: {newEmployee.Username}");
+            System.Diagnostics.Debug.WriteLine($"📧 E-post: {newEmployee.EmailAddress}");
+            System.Diagnostics.Debug.WriteLine($"🔑 RoleID: {newEmployee.RoleID}");
 
-            var adminRole = HttpContext.Session.GetInt32("UserRole");
+            newEmployee.UserID = 0; // Nollställ UserID
 
-            if (adminRole != 1)
+            // ✅ Om rollen är 2 (anställd) → Kolla om användaren är admin
+            if (newEmployee.RoleID == 2)
             {
-                TempData["ErrorMessage"] = "Du måste vara inloggad som administratör.";
-                return RedirectToAction("Index");
-            }//kollar om användaren är admin, annars kan man inte skapa anställda.
+                var adminRole = HttpContext.Session.GetInt32("UserRole");
 
+                System.Diagnostics.Debug.WriteLine($"🔍 Kontroll av admin-behörighet – AdminRole: {adminRole}");
+
+                if (adminRole != 1)
+                {
+                    System.Diagnostics.Debug.WriteLine("❌ Du är inte admin → Avbryter registrering");
+                    TempData["ErrorMessage"] = "Du måste vara inloggad som administratör.";
+                    return RedirectToAction("Index");
+                }
+            }
+
+            // ✅ Konvertera data till JSON-format
             var json = JsonSerializer.Serialize(new
             {
                 Username = newEmployee.Username,
                 PasswordHash = newEmployee.PasswordHash,
                 RoleID = newEmployee.RoleID,
                 EmailAddress = newEmployee.EmailAddress
-            });//konverterar den nya anställdas data till JSON-format.
+            });
 
+            System.Diagnostics.Debug.WriteLine($"🔄 JSON som skickas till API: {json}");
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("register", content);//skickar post-förfrågan till /register.
+            var response = await _httpClient.PostAsync("register", content);
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            if (!response.IsSuccessStatusCode)//om anropet misslyckas
+            System.Diagnostics.Debug.WriteLine($"🔎 API-responsstatus: {response.StatusCode}");
+            System.Diagnostics.Debug.WriteLine($"🔎 API-responsdata: {responseBody}");
+
+            if (!response.IsSuccessStatusCode)
             {
-                TempData["ErrorMessage"] = $"Fel vid skapande av anställd: {response.StatusCode} - {responseBody}";
+                System.Diagnostics.Debug.WriteLine($"❌ Fel vid skapande av användare: {response.StatusCode} - {responseBody}");
+                TempData["ErrorMessage"] = $"Fel vid skapande av användare: {response.StatusCode} - {responseBody}";
                 return RedirectToAction("Index");
             }
 
+            System.Diagnostics.Debug.WriteLine("✅ Registreringen lyckades!");
+
+            // ✅ Om det är en kund (RoleID = 3) → Omdirigera till login + visa meddelande
+            if (newEmployee.RoleID == 3)
+            {
+                System.Diagnostics.Debug.WriteLine("✅ RoleID = 3 → Användare är kund → Omdirigerar till Login");
+                TempData["SuccessMessage"] = "✅ Kontot har registrerats! Du kan nu logga in.";
+                return RedirectToAction("Login", "Account");
+            }
+
+            // ✅ Om det är en anställd (RoleID = 2) → Gå tillbaka till listan direkt
+            System.Diagnostics.Debug.WriteLine("✅ RoleID = 2 → Användare är anställd → Omdirigerar till Index");
             return RedirectToAction("Index");
         }
+
+
+
 
         [HttpPost]
         public async Task<IActionResult> DeleteEmployee(int userId)

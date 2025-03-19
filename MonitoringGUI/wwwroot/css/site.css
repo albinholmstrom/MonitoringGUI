@@ -983,11 +983,19 @@ footer {
     color: white;
     padding: 10px 16px;
     font-size: 14px;
+    font-family: inherit; /* Ärver typsnittet från omgivande container */
+    font-weight: 500; /* Gör texten lite fetare om det behövs */
+    font-style: normal;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
     width: 100%; /* Fyll ut hela bredden */
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    line-height: 24px;
+    vertical-align: middle;
 }
 
     .dash-btn-primary:hover {
@@ -1097,3 +1105,27 @@ footer {
 .register-container {
     margin-top: -50px; /* Justera lite uppåt om du vill finjustera placeringen */
 }
+.toast-container {
+    position: fixed;
+    top: 100px; 
+    left: 50%; /* Centrera horisontellt */
+    transform: translateX(-50%); /* Justera exakt till mitten */
+    z-index: 9999;
+}
+
+.toast {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s, transform 0.5s;
+    font-size: 16px;
+}
+
+    .toast.hide {
+        opacity: 0;
+        transform: translateY(20px); /* Gör så att den försvinner snyggt nedåt */
+    }

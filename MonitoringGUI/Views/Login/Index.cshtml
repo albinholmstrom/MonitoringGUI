@@ -3,6 +3,13 @@
     ViewData["Title"] = "Logga in";
 }
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success-message">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 <section class="login-container">
     <h2>Logga in</h2>
     <div class="login-box">

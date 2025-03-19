@@ -2,6 +2,22 @@
     Layout = "_Layout";
     ViewData["Title"] = "Logga in";
 }
+<div id="toast-container" class="toast-container">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="toast">
+            @TempData["SuccessMessage"]
+        </div>
+
+        <script>
+            // Visa toasten och göm den efter 3 sekunder
+            setTimeout(() => {
+                document.querySelector('.toast').classList.add('hide');
+            }, 3000);
+        </script>
+    }
+</div>
+
 
 <div class="login-overlay">
     <div class="login-container">

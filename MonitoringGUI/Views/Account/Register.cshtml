@@ -5,7 +5,6 @@
 
 <section class="register-page-wrapper">
     <div class="register-container">
-        <h2>Registrera dig</h2>
         <div class="register-box">
             @if (ViewBag.ErrorMessage != null)
             {
@@ -17,30 +16,57 @@
             <div class="dash-input-form">
                 <h3 class="dash-form-title">Skapa nytt konto</h3>
 
-                <form asp-action="Register" asp-controller="Account" method="post" class="dash-form">
+                @if (ViewBag.SuccessMessage != null)
+                {
+                    <div class="success-message">
+                        @ViewBag.SuccessMessage
+                    </div>
+
+                    <script>
+                        setTimeout(() => {
+                            window.location.href = '@Url.Action("Login", "Account")';
+                        }, 3000); // Omdirigera efter 3 sekunder
+                    </script>
+                }
+
+                <form asp-action="AddEmployee" asp-controller="Employee" method="post" class="dash-form">
+                    <!-- Användarnamn -->
                     <div class="dash-form-group">
                         <label for="username" class="dash-label">Användarnamn</label>
                         <input type="text" id="username" name="Username" class="dash-input" required />
                     </div>
 
+                    <!-- E-post -->
                     <div class="dash-form-group">
                         <label for="email" class="dash-label">E-post</label>
-                        <input type="email" id="email" name="Email" class="dash-input" required />
+                        <input type="email" id="email" name="EmailAddress" class="dash-input" required />
                     </div>
 
+                    <!-- Lösenord -->
                     <div class="dash-form-group">
                         <label for="password" class="dash-label">Lösenord</label>
-                        <input type="password" id="password" name="Password" class="dash-input" required />
+                        <input type="password" id="password" name="PasswordHash" class="dash-input" required />
                     </div>
 
+                    <!-- Bekräfta lösenord -->
+                    <div class="dash-form-group">
+                        <label for="confirmPassword" class="dash-label">Bekräfta lösenord</label>
+                        <input type="password" id="confirmPassword" class="dash-input"
+                               required oninput="this.setCustomValidity(this.value != password.value ? 'Lösenorden matchar inte' : '')" />
+                    </div>
+
+                    <!-- Roll-ID för gäst -->
                     <input type="hidden" name="RoleID" value="3" />
 
                     <div class="form-btn-wrapper">
                         <button type="submit" class="dash-btn-primary">Skapa konto</button>
+                    </div>
+
+                    <div class="form-btn-wrapper">
+                        <a asp-controller="Home" asp-action="Index" class="dash-btn-primary">Tillbaka</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </section>
-
