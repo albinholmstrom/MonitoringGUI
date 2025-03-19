@@ -67,20 +67,25 @@ public class AccountController : Controller
     {
         try
         {
-            // Skickar utloggningsbegäran till API:et
             var response = await _httpClient.PostAsync("https://informatik2.ei.hv.se/api/auth/logout", null);
         }
         catch
         {
-            // Om API-anropet misslyckas, fortsätt ändå med att rensa sessionen
+            // Fortsätt ändå med att rensa sessionen om anropet misslyckas
         }
 
-        // Rensar sessionen och cookies oavsett om API-anropet lyckades eller inte
         HttpContext.Session.Clear();
         Response.Cookies.Delete("SessionID");
 
-        // Omdirigera alltid till startsidan
         return RedirectToAction("Index", "Home");
     }
 
+    // ========================
+    // REGISTER ACTION (NY)
+    // ========================
+    [HttpGet]
+    public IActionResult Register()
+    {
+        return View(); // Måste finnas en Register.cshtml i Views/Account
+    }
 }

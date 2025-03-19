@@ -12,6 +12,10 @@
             <input type="password" name="password" placeholder="Lösenord" required>
             <button type="submit" class="login-button">Logga in</button>
         </form>
-        <p>Har du inget konto? <a href="/Login/Register">Skapa ett här</a></p>
+        <p>
+            Har du inget konto?
+            <a asp-controller="Account" asp-action="Register">Skapa ett här</a>
+        </p>
+
     </div>
 </section>

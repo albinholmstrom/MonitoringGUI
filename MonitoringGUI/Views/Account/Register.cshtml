@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Registrera dig";
+}
+
+<section class="register-page-wrapper">
+    <div class="register-container">
+        <h2>Registrera dig</h2>
+        <div class="register-box">
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="error-message">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+
+            <div class="dash-input-form">
+                <h3 class="dash-form-title">Skapa nytt konto</h3>
+
+                <form asp-action="Register" asp-controller="Account" method="post" class="dash-form">
+                    <div class="dash-form-group">
+                        <label for="username" class="dash-label">Användarnamn</label>
+                        <input type="text" id="username" name="Username" class="dash-input" required />
+                    </div>
+
+                    <div class="dash-form-group">
+                        <label for="email" class="dash-label">E-post</label>
+                        <input type="email" id="email" name="Email" class="dash-input" required />
+                    </div>
+
+                    <div class="dash-form-group">
+                        <label for="password" class="dash-label">Lösenord</label>
+                        <input type="password" id="password" name="Password" class="dash-input" required />
+                    </div>
+
+                    <input type="hidden" name="RoleID" value="3" />
+
+                    <div class="form-btn-wrapper">
+                        <button type="submit" class="dash-btn-primary">Skapa konto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+

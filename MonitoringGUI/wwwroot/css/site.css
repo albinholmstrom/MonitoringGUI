@@ -1087,3 +1087,13 @@ footer {
     background-color: #dc3545;
     color: white;
 }
+.register-page-wrapper {
+    display: flex;
+    justify-content: center; /* Centrera horisontellt */
+    align-items: center; /* Centrera vertikalt */
+    height: 100vh; /* Full höjd på sidan */
+}
+
+.register-container {
+    margin-top: -50px; /* Justera lite uppåt om du vill finjustera placeringen */
+}
