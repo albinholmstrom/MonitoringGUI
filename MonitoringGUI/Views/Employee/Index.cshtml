@@ -52,10 +52,10 @@
                                 <td>@employee.EmailAddress</td>
                             <td style="display: flex; gap: 10px;">
                                 <!-- Redigera-knapp -->
-                                <a href="@Url.Action("Edit", "Employee", new { userId = employee.UserID })" class="dash-btn-edit">✏️ Redigera</a>
+                                <a href="@Url.Action("Edit", "Employee", new { userId = employee.UserID })" class="dash-btn-edit"> Redigera</a>
                                     <form asp-action="DeleteEmployee" asp-controller="Employee" method="post" class="delete-form">
                                         <input type="hidden" name="userId" value="@employee.UserID" />
-                                        <button type="submit" class="dash-btn-danger">❌ Ta bort</button>
+                                        <button type="submit" class="dash-btn-danger"> Ta bort</button>
                                     </form>
                                 </td>
                             </tr>
@@ -93,7 +93,7 @@
                 <input type="hidden" name="RoleID" value="2" />
 
                 <div class="form-btn-wrapper">
-                    <button type="submit" class="dash-btn-primary">➕ Lägg till</button>
+                    <button type="submit" class="dash-btn-primary"> Lägg till</button>
                 </div>
             </form>
         </div>

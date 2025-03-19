@@ -359,6 +359,21 @@ main {
     .button:hover {
         background-color: #b59a85;
     }
+.LogoutButton {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+    margin-right: 20px;
+}
+
+    .LogoutButton:hover {
+        background-color: #b59a85;
+    }
 
 /* ============================ */
 /* Footer */
@@ -674,25 +689,6 @@ footer {
     margin-bottom: 20px; /* Extra mellanrum mellan rubriken och tabellen */
     color: var(--text-color);
 }
-
-.knapsson {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 12px 24px;
-    font-size: 18px;
-    font-weight: bold;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    outline: none;
-}
-
-    .knapsson:hover {
-        background-color: #b59a85;
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-    }
 
 .form-wrapper {
     display: flex;
