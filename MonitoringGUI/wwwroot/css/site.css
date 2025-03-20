@@ -32,7 +32,7 @@ body {
     padding: 0;
 }
 .home-page {
-    background-image: url('/images/lobby.png');
+    background-image: url('/MonitoringGUI/images/lobby.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -316,7 +316,7 @@ main {
     justify-content: center;
     text-align: center;
     height: 90vh;
-    background-image: url('/images/lobby.png'); /* Bild endast här */
+    background-image: url('/MonitoringGUI/images/lobby.png'); /* Bild endast här */
     background-size: cover;
     background-position: center;
     color: white;
@@ -335,7 +335,7 @@ main {
 }
 
 .background-lobby {
-    background-image: url('/images/lobby.png');
+    background-image: url('/MonitoringGUI/images/lobby.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Fixerar bakgrunden */

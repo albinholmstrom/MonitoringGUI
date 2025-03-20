@@ -83,7 +83,7 @@
         console.log("📡 Skickar PUT-request med data:", updatedEmployee);
 
         try {
-            const response = await fetch(`/Employee/proxy/updateEmployee/${userId}`, {
+            const response = await fetch(`https://informatik2.ei.hv.se/LoginService/api/auth/updateEmployee/${userId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -97,7 +97,7 @@
                 alert("Kunde inte uppdatera anställd: " + errorMsg);
             } else {
                 console.log("✅ Uppdatering lyckades!");
-                window.location.href = "/Employee"; // Omdirigera tillbaka till listan
+                window.location.href = "/MonitoringGUI/Employee"; // Omdirigera tillbaka till listan
             }
         } catch (error) {
             console.error("❌ Fetch error:", error);

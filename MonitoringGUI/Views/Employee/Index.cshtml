@@ -56,8 +56,8 @@
                             <td style="display: flex; gap: 10px;">
                                 <!-- Redigera-knapp -->
                                 <a href="@Url.Action("Edit", "Employee", new { userId = employee.UserID })" class="dash-btn-edit"> Redigera</a>
-                                <form action="/Employee/delete/@employee.UserID" method="post" class="delete-form">
-                                    <button type="submit" class="dash-btn-danger"> Ta bort</button>
+                                <form action="@Url.Action("Delete", "Employee", new { id = employee.UserID })" method="post" class="delete-form">
+                                    <button type="submit" class="dash-btn-danger">Ta bort</button>
                                 </form>
                                 </td>
                             </tr>

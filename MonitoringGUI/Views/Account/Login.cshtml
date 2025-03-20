@@ -23,7 +23,7 @@
     <div class="login-container">
         <h2>Logga in</h2>
         <div class="login-box">
-            <form method="post" action="/Account/Login">
+            <form method="post" action="@Url.Action("Login", "Account")">
                 <input type="text" name="username" placeholder="Användarnamn" required>
                 <input type="password" name="password" placeholder="Lösenord" required>
                 <button type="submit" class="login-button">Logga in</button>
