@@ -53,6 +53,9 @@
                 <input type="password" id="password" name="PasswordHash" class="dash-input">
             </div>
 
+            <!-- Skicka med RoleID som hidden -->
+            <input type="hidden" name="RoleID" value="@Model.RoleID">
+
             <div class="form-btn-wrapper">
                 <button type="submit" class="dash-btn-primary">Spara ändringar</button>
                 <a href="@Url.Action("Index", "Employee")" class="dash-btn-primary">Tillbaka</a>

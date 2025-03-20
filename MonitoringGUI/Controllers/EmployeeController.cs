@@ -82,7 +82,10 @@ namespace MonitoringGUI.Controllers
                 return View(new List<User>());
             }
 
+            // ✅ LOGGA RÅDATA FRÅN API FÖR FELSÖKNING
             var employeesJson = await employeesResponse.Content.ReadAsStringAsync();
+            System.Diagnostics.Debug.WriteLine($"🛠️ Rådata från API: {employeesJson}");
+
             var employees = JsonSerializer.Deserialize<List<User>>(employeesJson, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -193,25 +196,33 @@ namespace MonitoringGUI.Controllers
 
 
 
-        [HttpPut("updateEmployee/{userId}")]
+        [HttpPost("updateEmployee/{userId}")]
         public async Task<IActionResult> UpdateEmployee(int userId, [FromForm] User updatedEmployee, [FromForm] string _method)
         {
             System.Diagnostics.Debug.WriteLine($"🚀 GUI: UpdateEmployee-metoden anropad för UserID: {userId}");
 
-            // Kontrollera om metoden är PUT (för att säkerställa att den simulerar PUT korrekt).
+            // 🔥 Kontrollera om metoden är PUT (simulerad via formuläret)
             if (_method != "PUT")
             {
                 System.Diagnostics.Debug.WriteLine("❌ Felaktig HTTP-metod mottagen!");
                 return BadRequest("Fel metod!");
             }
 
+            // ✅ Logga värden för felsökning
+            System.Diagnostics.Debug.WriteLine($"👤 Username: {updatedEmployee.Username}");
+            System.Diagnostics.Debug.WriteLine($"📧 EmailAddress: {updatedEmployee.EmailAddress}");
+            System.Diagnostics.Debug.WriteLine($"🔑 RoleID: {updatedEmployee.RoleID}");
+
+            // 🔒 Kontrollera admin-rättigheter
             var adminRole = HttpContext.Session.GetInt32("UserRole");
             if (adminRole != 1)
             {
                 TempData["ErrorMessage"] = "Du måste vara inloggad som administratör.";
+                System.Diagnostics.Debug.WriteLine("❌ Användaren är inte admin!");
                 return RedirectToAction("Index");
             }
 
+            // ✅ Skapa JSON för API-anrop
             var json = JsonSerializer.Serialize(new
             {
                 Username = updatedEmployee.Username,
@@ -220,17 +231,26 @@ namespace MonitoringGUI.Controllers
                 RoleID = updatedEmployee.RoleID
             });
 
+            System.Diagnostics.Debug.WriteLine($"📡 JSON som skickas till API: {json}");
+
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            // Skickar PUT-anrop till API:et
+            // 🚀 Skicka PUT-anrop till API:et (använder HttpClient PUT direkt)
             var response = await _httpClient.PutAsync($"updateEmployee/{userId}", content);
             var responseBody = await response.Content.ReadAsStringAsync();
 
+            System.Diagnostics.Debug.WriteLine($"🔎 API-responsstatus: {response.StatusCode}");
+            System.Diagnostics.Debug.WriteLine($"🔎 API-responsdata: {responseBody}");
+
+            // ✅ Hantera eventuella fel
             if (!response.IsSuccessStatusCode)
             {
+                System.Diagnostics.Debug.WriteLine($"❌ Fel vid uppdatering av anställd: {response.StatusCode} - {responseBody}");
                 TempData["ErrorMessage"] = $"Fel vid uppdatering av anställd: {response.StatusCode} - {responseBody}";
                 return RedirectToAction("Index");
             }
+
+            System.Diagnostics.Debug.WriteLine("✅ Uppdatering lyckades – omdirigerar till Index");
 
             return RedirectToAction("Index");
         }

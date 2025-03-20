@@ -40,7 +40,9 @@
                             <th>ID</th>
                             <th>Användarnamn</th>
                             <th>Email</th>
+                        <th>Roll</th>
                             <th>Åtgärder</th>
+                          
                         </tr>
                     </thead>
                     <tbody>
@@ -50,6 +52,7 @@
                                 <td>@employee.UserID</td>
                                 <td>@employee.Username</td>
                                 <td>@employee.EmailAddress</td>
+                                <td>@employee.RoleID</td>
                             <td style="display: flex; gap: 10px;">
                                 <!-- Redigera-knapp -->
                                 <a href="@Url.Action("Edit", "Employee", new { userId = employee.UserID })" class="dash-btn-edit"> Redigera</a>
