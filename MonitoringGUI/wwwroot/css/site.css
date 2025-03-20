@@ -624,6 +624,7 @@ footer {
     justify-content: center; /* Centrera tabellen horisontellt */
     align-items: center;
     margin-top: 20px; /* Öka detta värde för att flytta ner tabellen */
+    margin-bottom: 20px;
 }
 .table-container {
     width: 70%; /* Sätt en bred men inte för stor tabell */

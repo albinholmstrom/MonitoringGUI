@@ -33,34 +33,74 @@
     <div class="dash-input-form">
         <h3 class="dash-form-title">Redigera Anställd</h3>
 
-        <form method="post" action="@Url.Action("UpdateEmployee", "Employee", new { userId = Model.UserID })" enctype="application/x-www-form-urlencoded">
-            <!-- Simulera PUT-metod -->
-            <input type="hidden" name="_method" value="PUT">
-            <input type="hidden" name="UserID" value="@Model.UserID">
+        <form id="updateEmployeeForm">
+            <input type="hidden" id="UserID" value="@Model.UserID">
 
             <div class="dash-form-group">
                 <label for="username" class="dash-label">Användarnamn</label>
-                <input type="text" id="username" name="Username" value="@Model.Username" class="dash-input" required>
+                <input type="text" id="Username" value="@Model.Username" class="dash-input" required>
             </div>
 
             <div class="dash-form-group">
                 <label for="email" class="dash-label">E-post</label>
-                <input type="email" id="email" name="EmailAddress" value="@Model.EmailAddress" class="dash-input" required>
+                <input type="email" id="EmailAddress" value="@Model.EmailAddress" class="dash-input" required>
             </div>
 
             <div class="dash-form-group">
                 <label for="password" class="dash-label">Lösenord (lämna tomt om det ej ska ändras)</label>
-                <input type="password" id="password" name="PasswordHash" class="dash-input">
+                <input type="password" id="PasswordHash" class="dash-input">
             </div>
 
-            <!-- Skicka med RoleID som hidden -->
-            <input type="hidden" name="RoleID" value="@Model.RoleID">
+            <input type="hidden" id="RoleID" value="@Model.RoleID">
 
             <div class="form-btn-wrapper">
-                <button type="submit" class="dash-btn-primary">Spara ändringar</button>
+                <button type="button" id="updateBtn" class="dash-btn-primary">Spara ändringar</button>
                 <a href="@Url.Action("Index", "Employee")" class="dash-btn-primary">Tillbaka</a>
             </div>
         </form>
     </div>
 </div>
 
+<script>
+    document.getElementById("updateBtn").addEventListener("click", async function() {
+        const userId = document.getElementById("UserID").value;
+
+        // Hämta lösenordet
+        let passwordValue = document.getElementById("PasswordHash").value;
+
+        // Om lösenordet är tomt, skicka en tom sträng istället för null
+        if (!passwordValue.trim()) {
+            passwordValue = "";
+        }
+
+        const updatedEmployee = {
+            Username: document.getElementById("Username").value,
+            EmailAddress: document.getElementById("EmailAddress").value,
+            PasswordHash: passwordValue, // Skicka tom sträng om lösenord inte ändras
+            RoleID: parseInt(document.getElementById("RoleID").value)
+        };
+
+        console.log("📡 Skickar PUT-request med data:", updatedEmployee);
+
+        try {
+            const response = await fetch(`/Employee/proxy/updateEmployee/${userId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedEmployee)
+            });
+
+            if (!response.ok) {
+                const errorMsg = await response.text();
+                console.error("❌ Fel vid uppdatering:", errorMsg);
+                alert("Kunde inte uppdatera anställd: " + errorMsg);
+            } else {
+                console.log("✅ Uppdatering lyckades!");
+                window.location.href = "/Employee"; // Omdirigera tillbaka till listan
+            }
+        } catch (error) {
+            console.error("❌ Fetch error:", error);
+        }
+    });
+</script>
