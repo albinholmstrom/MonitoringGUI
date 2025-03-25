@@ -29,8 +29,8 @@
         <ul class="nav-links">
             <li><a href="https://informatik1.ei.hv.se/StartGUI/Rooms">Rum</a></li>
             <li><a asp-controller="Home" asp-action="Food">Mat & Dryck</a></li>
-            <li><a asp-controller="Home" asp-action="Event">Event</a></li>
-            <li><a="">Erbjudanden</a></li>
+            <li><a asp-controller="Event" asp-action="Index">Event</a></li>
+            <li><a asp-controller="Offer" asp-action="Index">Erbjudanden</a></li>
 
             @if (roleID == 1) // Visa Admin endast för behöriga användare
             {

@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Erbjudanden";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="success-message">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<h2>A</h2>
+<!-- Kortkomponenter -->
+<section class="services">
+    <div class="container">
+        <div class="card">
+            <img src="~/images/restaurang.png" alt="Kök & Bar">
+            <h3>Tre nätter till priset av två!</h3>
+            <p>Unna dig en härlig minisemester och njut av en extra natt – helt utan extra kostnad</p>
+            <p>Boka tre nätter hos oss, men betala bara för två.</p>
+            <p>Det är det perfekta tillfället att förlänga din vistelse, koppla av lite extra och skapa ännu fler minnen.</p>
+        </div>
+        <div class="card">
+            <img src="~/images/spa.png" alt="Paket & Erbjudande">
+            <h3>Bo i en vecka, få gratis frukost!</h3>
+            <p>Gör din vistelse ännu bättre! Boka minst sju nätter hos oss och njut av en läcker frukost – helt gratis varje morgon. </p>
+            <p> Börja dagen på bästa sätt med en härlig frukostbuffé fylld med färska råvaror, nybakat bröd, frukt, yoghurt och mycket mer.</p>
+            <p>Ge dig själv en skön och avkopplande vecka där du slipper tänka på frukosten – vi ordnar allt åt dig!</p>
+        </div>
+        <div class="card">
+            <img src="~/images/parking.png" alt="Parkering">
+            <h3>Samla bonuspoäng, få gratis parkering!</h3>
+            <p>Nu blir det ännu mer fördelaktigt att bo hos oss!</p>
+            <p>För varje vistelse samlar du bonuspoäng – och när du når rätt nivå, bjuder vi på gratis parkering under din nästa vistelse.</p>
+        </div>
+    </div>
+</section>
