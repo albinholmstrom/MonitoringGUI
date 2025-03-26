@@ -28,7 +28,7 @@
         </div>
         <ul class="nav-links">
             <li><a href="https://informatik1.ei.hv.se/StartGUI/Rooms">Rum</a></li>
-            <li><a asp-controller="Home" asp-action="Food">Mat & Dryck</a></li>
+            <li><a href="https://informatik3.ei.hv.se/RestaurangGUI">Mat & Dryck</a></li>
             <li><a asp-controller="Event" asp-action="Index">Event</a></li>
             <li><a asp-controller="Offer" asp-action="Index">Erbjudanden</a></li>
 
@@ -36,6 +36,13 @@
             {
                 <li><a asp-controller="Dashboard" asp-action="Index">Admin</a></li>
             }
+
+            @if (roleID == 2) // Visa endast för rollid 2 användare
+            {
+                <li><a href="https://informatik1.ei.hv.se/StaffGUI">Bokning & Rum</a></li>
+                <li><a href="https://informatik4.ei.hv.se/CleaningGUI">Städning</a></li>
+            }
+            
         </ul>
 
         <!-- Inloggningssektion -->
