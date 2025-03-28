@@ -37,6 +37,7 @@
         }
         else
         {
+              // Försöker kasta ViewBag.ApiStats till Dictionary
             var apiStats = ViewBag.ApiStats as Dictionary<string, List<dynamic>>;
 
             <table class="table">
@@ -55,6 +56,7 @@
 
                         if (stats != null && stats.Any())
                         {
+                    // Går igenom varje rad i statistiklistan
                             foreach (var stat in stats)
                             {
                                 <tr>

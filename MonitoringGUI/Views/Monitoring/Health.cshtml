@@ -48,6 +48,7 @@
                         <tr>
                             <td>@api.Key</td>
                             <td>@api.Value</td>
+                            <!-- Visuell status med färgkod beroende på status -->
                             <td style="text-align: center; font-weight: bold; color: white; background-color:
                                 @(api.Value == "Running" ? "#28a745" : api.Value == "Issue Detected" ? "#ffc107" : "#dc3545")">
                                 @(api.Value == "Running" ? "Up" : api.Value == "Issue Detected" ? "Issue" : "Down")
